@@ -1,0 +1,98 @@
+******************
+
+Agenda
+
+************************
+
+Configuration Management : is a Process of making changes to infrasructure (remotely)
+
+Ansible Notes
+
+Create 2 instances and start them
+
+Set up on ACM:
+********************************
+
+Step1: 
+**************
+go to vim /etc/ssh/sshd_config
+
+	i
+scroll down
+remove the # for  password Authentication Yes
+Add # for 	  password Authentication No
+
+:wq!
+
+Step 2:
+**************
+Create password for ec2-user
+
+# passwd ec2-user
+Newpassword:
+ConfirmPassword:
+
+********************
+Step 3:
+***********
+
+Add ec2-user in sudoers files and give all permission
+
+# vim /etc/sudoers
+
+i
+scroll down
+
+under root add like this
+
+ec2-user ALL=NOPASSWD: ALL
+
+**************************
+Step 4:
+
+Restart your sshd connection
+
+# systemctl restart sshd
+
+*******************
+
+Repeat all the 4 steps on Host machine also and restart the sshd connection on host machine.
+
+************************
+
+Install Ansible :
+
+Step 1:
+*************
+
+# yum list | grep ansible  // you will not find ansible package as default in yum
+
+So install epel replositories and it will ass ansible to yum repository
+
+
+	# yum install epel-release
+
+// copy the command sudo amazon-linux-extras install epel and execute it
+
+	# sudo amazon-linux-extras install epel
+
+give y
+
+Complete!
+
+You will ansible package is now available with yum
+
+	# yum list | grep ansible
+
+//ansible will be available (wait for few seconds)
+
+
+	# yum install ansible
+
+press y
+again press y
+Complete!
+
+	# ansible --version
+
+version of ansible isntalled will be displayed.

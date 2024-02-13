@@ -1,0 +1,191 @@
+=====================
+Apache Tomact Server
+=====================
+
+=> Apache Tomcat is a web server 
+
+=> Apache Tomcat is used to run Java Web Applications
+
+=> Apache Tomcat is free & open source
+
+=> Apache Tomcat runs on 8080 port by default (we can change that port in server.xml file)
+
+===============================
+Apache Tomcat Folder Structure
+===============================
+
+bin : It contains commands to start and stop tomcat server
+
+conf : It contains configuration files
+
+webapps : This is called as deployment folder
+
+Note: We will keep war file in webapps folder for deployment
+========================================
+Working with Apache Tomact in Linux VM
+========================================
+
+-> Login into AWS Management Console
+
+-> Create EC2 Instance (Amazon Linux AMI)
+
+-> Connect to EC2 instance using MobaXterm 
+
+-> install java software using below command 
+
+		$ sudo yum install java-1.8.0
+
+-> Verify the version of java installed in our machine 
+
+		$ java -version
+
+-> Copy the URL of tar file and execute below command in linux machine
+
+		$ wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.84/bin/apache-tomcat-9.0.84.tar.gz
+
+-> After tomact tar file got downloaded then extract Tomcat Tar file using below command
+	
+		$ tar -xvf <tomact-tar-file-name>
+
+-> Go inside tomcat folder and see folder structure
+
+		$ cd tomact-folder
+		$ ll
+
+-> Go to tomact bin directory and run tomact server
+
+	$ cd bin
+	$ sh startup.sh
+
+Note: Tomcat Server runs on 8080 port by default. Enable this port in security group as custom tcp
+
+-> Access Tomact server from your browser
+
+	URL : 54.84.47.107:8080/
+
+
+Note: It should open tomact server home page(Not Test Page).
+=========================
+Adminstration task
+==========================
+
+=> By default the Host Manager is only accessible from a browser running on the same machine as Tomcat. If you wish to modify this restriction, you'll need to edit the Host Manager's context.xml file.
+
+=> File Location : <tomcat-folder>/webapps/manager/META-INF/context.xml
+
+=> In Manager context.xml file, change <Valve> section like below (allow attribute value changed)
+
+<Context antiResourceLocking="false" privileged="true" >
+     <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow=".*" />
+</Context>
+
+
+===========================================================================
+Add tomact users in "<tomact-folder>/conf/tomact-users.xml" file like below 
+============================================================================
+<role rolename="manager-gui" />
+<role rolename="manager-script" />
+<role rolename="admin-gui" />
+
+<user username="tomcat" password="tomcat" roles="manager-gui" />
+<user username="admin" password="admin" roles="manager-gui,admin-gui,manager-script"/>
+
+-> Stop the tomact server and start it
+
+
+================================================================================
+How to change Tomcat Port number
+================================================================================
+
+-> We can change tomcat server default port in tomact/conf/server.xml file 
+
+============================================================
+Steps to deploy Maven Web Application in Tomcat Server
+============================================================
+
+1) Create Maven Web application by using below link
+
+	https://github.com/NeelakantaKalyani/myapp.git
+
+2) Edit "index.jsp" file like below (File Location : project-folder\src\main\webapp)
+
+<html>
+<body>
+<h2>Hello Welcome to neeltechjunction</h2>
+</body>
+</html>
+
+
+3) Package maven web application as war file using maven goals
+
+	$ mvn clean package
+	
+4) Go to Tomcat Server Admin Dashboard and click on "Manager App"and Login using credentials
+
+5) Select War file to upload and click on 'deploy' button
+
+6) War file will be deployed and it will display in applications 
+
+7) Click on Application Path (It will open the application in browser)
+
+====================
+Conclusion
+====================
+-> Stop Apache Tomact Server
+
+-> Stop Ec2 instance 
+=====================
+*Today's Lab Task*
+=====================
+
+1) Create Maven Web Application
+
+2) Build Maven Project using Maven Goals
+
+3) Download Apache Tomcat Server
+
+4) Deploy war file in tomcat server (keep war file in webapps folder)
+
+5) Run Tomcat server (bin/startup.bat)
+
+6) Access application in browser 
+
+		URL : http://localhost:8080/<app-name>/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
